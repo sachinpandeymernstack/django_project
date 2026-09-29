@@ -1,358 +1,264 @@
-# 🏥 Healthcare Backend System
+# 🏥 CarePulse - Healthcare Backend & Management System
 
-A robust, production-ready RESTful API backend for a Healthcare Management System built using **Django**, **Django REST Framework (DRF)**, **SimpleJWT**, and **PostgreSQL**.
+[![Django](https://img.shields.io/badge/Django-6.1-092E20?style=for-the-badge&logo=django&logoColor=white)](https://djangoproject.com)
+[![DRF](https://img.shields.io/badge/Django_REST_Framework-3.18.1-red?style=for-the-badge&logo=django)](https://django-rest-framework.org)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon_Cloud-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://neon.tech)
+[![React](https://img.shields.io/badge/React-19_TypeScript-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
+[![Docker](https://img.shields.io/badge/Docker-Multi--Stage_Build-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
+[![Render](https://img.shields.io/badge/Deployed_on-Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://render.com)
 
-This project provides secure user authentication, patient management, doctor directory management, and patient-doctor relationship mapping with fine-grained access control and scoping.
+A robust, enterprise-grade, production-ready **Healthcare Management System** built with **Django 6.1**, **Django REST Framework (DRF)**, **SimpleJWT**, **PostgreSQL (Neon Cloud)**, **Docker**, and a full-featured **React 19 + TypeScript SPA**.
 
----
-
-## 🌐 Live Production URL
-- **Live Application**: [https://sachinwhatbytes.onrender.com/](https://sachinwhatbytes.onrender.com/)
-- **Live Swagger API Docs**: [https://sachinwhatbytes.onrender.com/api/docs/](https://sachinwhatbytes.onrender.com/api/docs/)
-- **Live ReDoc Schema**: [https://sachinwhatbytes.onrender.com/api/redoc/](https://sachinwhatbytes.onrender.com/api/redoc/)
-- **Live Django Admin**: [https://sachinwhatbytes.onrender.com/admin/](https://sachinwhatbytes.onrender.com/admin/)
-
----
-
-## 🛠️ Tech Stack & Prerequisites
-
-### Tech Stack
-- **Backend Framework**: Django 6.1 / Django REST Framework
-- **Authentication**: `djangorestframework-simplejwt` (JWT Bearer tokens)
-- **Database**: PostgreSQL (Neon Cloud DB)
-- **API Documentation**: OpenAPI 3.0 via `drf-spectacular` (Swagger UI & ReDoc)
-- **Frontend Framework**: React 19 + TypeScript (Vite)
-- **State & Data Fetching**: TanStack Query (`@tanstack/react-query`)
-- **UI & Animations**: TailwindCSS v4, Framer Motion, Lucide React Icons
-- **Deployment**: Docker container on Render.com
-
+Designed with clean modular domain architecture, fine-grained access control, automated test coverage, OpenAPI 3.0 documentation, and responsive glassmorphic UI interfaces.
 
 ---
 
-## 📖 API Documentation & Views
+## 🌐 Live Production Deployments
 
-Interactive documentation, MVT views, and Admin dashboard:
-- **Classic Django MVT Portal**: `http://127.0.0.1:8000/` (Server-side rendered HTML via Django Templates & ORM)
-- **Swagger UI**: `http://127.0.0.1:8000/api/docs/`
-- **ReDoc UI**: `http://127.0.0.1:8000/api/redoc/`
-- **OpenAPI JSON Schema**: `http://127.0.0.1:8000/api/schema/`
-- **Django MVT Admin Dashboard**: `http://127.0.0.1:8000/admin/`
-
-
----
-
-## 🎨 React Frontend Setup
+| Resource | Live Production Link | Description |
+| :--- | :--- | :--- |
+| **🚀 React 19 SPA** | [https://sachinwhatbytes.onrender.com/app/](https://sachinwhatbytes.onrender.com/app/) | Interactive Glassmorphic Web App with Skeleton Loading |
+| **📊 Django MVT Dashboard** | [https://sachinwhatbytes.onrender.com/](https://sachinwhatbytes.onrender.com/) | Server-Side Rendered (MVT) Live Database Portal |
+| **📚 Interactive Swagger UI** | [https://sachinwhatbytes.onrender.com/api/docs/](https://sachinwhatbytes.onrender.com/api/docs/) | OpenAPI 3.0 Interactive API Explorer |
+| **📘 ReDoc Schema** | [https://sachinwhatbytes.onrender.com/api/redoc/](https://sachinwhatbytes.onrender.com/api/redoc/) | Detailed API Schema Specification |
+| **🛡️ Django Admin Panel** | [https://sachinwhatbytes.onrender.com/admin/](https://sachinwhatbytes.onrender.com/admin/) | Custom Styled Django Administration Console |
 
 ---
 
-## 🎨 React Frontend Setup
+## 💡 Quick Demo Credentials for Invigilators & Evaluators
 
-The project includes a full-featured, glassmorphic React dashboard located in the `frontend/` directory.
+| Console | URL | Username / Email | Password |
+| :--- | :--- | :--- | :--- |
+| **React Web App** | `/app/` | `admin@healthcare.org` | `AdminPassword123!` |
+| **Django Admin** | `/admin/` | `admin` | `AdminPassword123!` |
 
-### Start Frontend Dev Server
-```bash
-cd frontend
-npm run dev
+> ⚡ **Tip**: Both login screens feature 1-click **Auto-fill** credentials for instant testing!
+
+---
+
+## ✨ Key System Features & Highlights
+
+- **🔒 Secure JWT Authentication**: Stateless bearer authentication powered by `djangorestframework-simplejwt` with custom user email identity scoping.
+- **👥 Patient Scoping & Ownership**: Users can register, log in, and securely manage patient records scoped exclusively to their authenticated session.
+- **🩺 Medical Specialist Directory**: Searchable, filterable doctor directory with experience tracking, specialization tags, and hospital affiliations.
+- **🔗 Patient-Doctor Relationship Mappings**: Multi-doctor assignment capability per patient with unique constraint guarantees and detailed clinical notes.
+- **⚡ Dual Portal Interface**:
+  - **Single Page App (React 19 + Vite + TypeScript)**: Features TanStack Query caching, glassmorphic UI, smooth Framer Motion animations, and custom Skeleton loading placeholders.
+  - **Server-Side Rendered (Django MVT)**: Server-side rendered HTML dashboard via Django Templates & ORM queries.
+- **⚠️ Standardized Error Contract**: Custom global DRF exception handler (`healthcare_backend/exceptions.py`) delivering predictable JSON error payloads (`status`, `code`, `message`, `details`).
+- **🐳 Production Docker Containerization**: Multi-stage Docker build utilizing Node.js for Vite compilation and Gunicorn + WhiteNoise for high-performance static asset serving.
+
+---
+
+## 🛠️ Complete Technology Stack
+
+### Backend Stack
+- **Language**: Python `3.12`
+- **Framework**: Django `6.1` & Django REST Framework `3.18.1`
+- **Authentication**: `djangorestframework-simplejwt` (`5.5.1`)
+- **Database**: Serverless PostgreSQL (Neon Cloud DB) via `psycopg2-binary` (`2.9.13`)
+- **API Specification**: OpenAPI 3.0 via `drf-spectacular` (`0.30.0`)
+- **WSGI & Static Serving**: `gunicorn` (`23.0.0`) & `whitenoise` (`6.9.0`)
+
+### Frontend Stack
+- **Framework**: React `19` + TypeScript
+- **Build Tool**: Vite `8.3`
+- **State & Data Fetching**: TanStack Query (`@tanstack/react-query` v5)
+- **HTTP Client**: Axios with automatic JWT interceptors & 401 handling
+- **Styling & UI**: TailwindCSS v4, Glassmorphic design, Lucide React Icons (`lucide-react`)
+- **Animations & Feedback**: Framer Motion & React Hot Toast (`react-hot-toast`)
+
+---
+
+## 🗄️ Database Architecture & Entity Relationships
+
+```mermaid
+erDiagram
+    USER ||--o{ PATIENT : "creates & owns"
+    PATIENT ||--o{ PATIENT_DOCTOR_MAPPING : "has assigned"
+    DOCTOR ||--o{ PATIENT_DOCTOR_MAPPING : "is assigned to"
+
+    USER {
+        int id PK
+        string email UK
+        string name
+        boolean is_active
+        datetime date_joined
+    }
+
+    PATIENT {
+        int id PK
+        string name
+        string email
+        string phone
+        date date_of_birth
+        string gender
+        text address
+        text medical_history
+        int created_by_id FK
+        datetime created_at
+        datetime updated_at
+    }
+
+    DOCTOR {
+        int id PK
+        string name
+        string specialization
+        string email UK
+        string phone
+        int years_of_experience
+        string hospital_name
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+
+    PATIENT_DOCTOR_MAPPING {
+        int id PK
+        int patient_id FK
+        int doctor_id FK
+        text notes
+        datetime assigned_at
+    }
 ```
-Access the application in your browser at `http://localhost:3000`.
-
-### Features
-- **Auth Context**: Persists JWT access/refresh tokens and user session in `localStorage`.
-- **TanStack Query Integration**: Automatic data fetching, caching, and mutation invalidations for Patients, Doctors, and Mappings.
-- **Glassmorphic UI & Framer Motion Animations**: Smooth page transitions, animated modal dialogs, and interactive metric cards.
-
-
-### Prerequisites
-Make sure you have the following installed on your system:
-- **Python**: 3.10 or higher
-- **PostgreSQL**: 14 or higher (Running service)
-- **Git**: For version control
 
 ---
 
-## 🚀 Quick Start Guide (Step-by-Step)
+## 🚀 Local Development Setup Guide
 
-Follow these steps to set up and run the project from scratch on your local machine.
+Follow these steps to run the complete stack locally on your machine.
 
-### 1. Clone the Repository
+### 1. Prerequisites
+- **Python**: `3.10` or higher
+- **Node.js**: `18.x` or `20.x`
+- **PostgreSQL**: `14+` (or Neon PostgreSQL connection string)
+- **Git**
+
+### 2. Clone Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/sachinpandeymernstack/django_project.git
 cd django_project
 ```
 
-### 2. Set Up Python Virtual Environment
+### 3. Virtual Environment & Dependencies
 ```bash
 # Create virtual environment
 python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
-# Activate virtual environment
-# On Linux/macOS:
-source .venv/bin/activate
-# On Windows (PowerShell):
-# .venv\Scripts\Activate.ps1
-```
-
-### 3. Install Dependencies
-```bash
+# Install Python requirements
 pip install -r requirements.txt
 ```
 
-### 4. Configure Environment Variables
-Copy the template `.env.example` file to `.env`:
+### 4. Environment Variables Configuration
+Copy `.env.example` to `.env`:
 ```bash
 cp .env.example .env
 ```
-
-Edit `.env` to match your local PostgreSQL configuration:
+Fill in your database parameters inside `.env`:
 ```env
-SECRET_KEY=your-django-secret-key
+SECRET_KEY=your-custom-django-secret-key
 DEBUG=True
-DB_NAME=healthcare_db
-DB_USER=postgres
-DB_PASSWORD=your_postgres_password
-DB_HOST=localhost
-DB_PORT=5432
-```
-> **Note for Unix socket users**: If connecting locally via PostgreSQL socket (without host/password prompt), leave `DB_HOST=` and `DB_PASSWORD=` blank.
-
-### 5. Create PostgreSQL Database
-Create the database in PostgreSQL shell or command line:
-```bash
-# Using psql command line:
-psql -U postgres -c "CREATE DATABASE healthcare_db;"
+DATABASE_URL=postgresql://neondb_owner:YOUR_PASSWORD@ep-sample.neon.tech/neondb?sslmode=require
 ```
 
-### 6. Run Database Migrations
-Apply Django migrations to set up database schemas:
+### 5. Apply Database Migrations
 ```bash
-python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 7. Run the Development Server
-Start the local server at `http://127.0.0.1:8000/`:
+### 6. Start Django Backend Server
 ```bash
-python manage.py runserver
+python manage.py runserver 8000
 ```
+Backend will run at: `http://127.0.0.1:8000/`
+
+### 7. Start React Frontend (Dev Server)
+In a new terminal:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Frontend will run at: `http://localhost:3000/`
 
 ---
 
-## 🧪 Running Automated Tests
+## 🧪 Automated Testing Suite
 
-Run the complete automated unit and API integration test suite (20 tests):
+The repository includes a comprehensive 20-test automated test suite covering models, authentication permissions, REST API endpoints, validation logic, and foreign key mappings.
+
+Run all tests:
 ```bash
 python manage.py test --keepdb
 ```
-> **Tip for Neon Cloud PostgreSQL**: Use `--keepdb` when running tests against Neon's connection pooler to prevent pooler session locks during test database teardown.
 
-
----
-
-## 📚 API Endpoints Documentation
-
-All protected endpoints require the following header:
-```text
-Authorization: Bearer <your_jwt_access_token>
-```
-
-### 🔐 1. Authentication APIs (`/api/auth/`)
-
-#### 1.1 Register User
-- **Method**: `POST`
-- **Endpoint**: `/api/auth/register/`
-- **Access**: Public
-- **Request Body**:
-```json
-{
-  "name": "Dr. Alice Smith",
-  "email": "alice@example.com",
-  "password": "Password123!"
-}
-```
-- **Response (`201 Created`)**:
-```json
-{
-  "message": "User registered successfully.",
-  "user": {
-    "id": 1,
-    "name": "Dr. Alice Smith",
-    "email": "alice@example.com"
-  }
-}
-```
-
-#### 1.2 User Login
-- **Method**: `POST`
-- **Endpoint**: `/api/auth/login/`
-- **Access**: Public
-- **Request Body**:
-```json
-{
-  "email": "alice@example.com",
-  "password": "Password123!"
-}
-```
-- **Response (`200 OK`)**:
-```json
-{
-  "message": "Login successful.",
-  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6...",
-  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6...",
-  "user": {
-    "id": 1,
-    "name": "Dr. Alice Smith",
-    "email": "alice@example.com"
-  }
-}
-```
+### Test Coverage Highlights:
+- **Authentication**: User registration, login token pair creation, duplicate email rejection.
+- **Patient Management**: Authorized patient creation, strict user-level data isolation, updates, and deletion.
+- **Doctor Directory**: Doctor creation, listing, updating, and experience validation.
+- **Mappings**: Assigning doctors to patients, unique mapping constraints, and retrieval by patient ID.
 
 ---
 
-### 🩺 2. Patient Management APIs (`/api/patients/`)
+## 📚 REST API Endpoint Documentation
 
-#### 2.1 Add Patient
-- **Method**: `POST`
-- **Endpoint**: `/api/patients/`
-- **Access**: Protected (`Bearer <token>`)
-- **Request Body**:
-```json
-{
-  "name": "John Doe",
-  "email": "johndoe@example.com",
-  "phone": "1234567890",
-  "date_of_birth": "1990-05-15",
-  "gender": "Male",
-  "address": "123 Health Ave, Cityville",
-  "medical_history": "No known allergies."
-}
-```
-- **Response (`201 Created`)**:
-```json
-{
-  "id": 1,
-  "name": "John Doe",
-  "email": "johndoe@example.com",
-  "phone": "1234567890",
-  "date_of_birth": "1990-05-15",
-  "gender": "Male",
-  "address": "123 Health Ave, Cityville",
-  "medical_history": "No known allergies.",
-  "created_by": 1,
-  "created_by_email": "alice@example.com",
-  "created_at": "2026-09-29T20:00:00Z",
-  "updated_at": "2026-09-29T20:00:00Z"
-}
-```
+All protected endpoints require the HTTP header:
+`Authorization: Bearer <your_access_token>`
 
-#### 2.2 Get All Patients Created by User
-- **Method**: `GET`
-- **Endpoint**: `/api/patients/`
-- **Access**: Protected (`Bearer <token>`)
-- **Response (`200 OK`)**: Array of patient records owned by authenticated user.
+### 🔐 1. Auth Endpoints (`/api/auth/`)
 
-#### 2.3 Get Specific Patient Details
-- **Method**: `GET`
-- **Endpoint**: `/api/patients/<id>/`
-- **Access**: Protected (`Bearer <token>`)
+| Method | Endpoint | Access | Description |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/auth/register/` | Public | Register a new user with name, email, and password |
+| `POST` | `/api/auth/login/` | Public | Authenticate user & return JWT `access` and `refresh` tokens |
 
-#### 2.4 Update Patient Details
-- **Method**: `PUT`
-- **Endpoint**: `/api/patients/<id>/`
-- **Access**: Protected (`Bearer <token>`)
-- **Request Body**:
-```json
-{
-  "name": "John Doe Updated",
-  "phone": "9998887777"
-}
-```
+### 🩺 2. Patient Endpoints (`/api/patients/`)
 
-#### 2.5 Delete Patient
-- **Method**: `DELETE`
-- **Endpoint**: `/api/patients/<id>/`
-- **Access**: Protected (`Bearer <token>`)
-- **Response (`200 OK`)**:
-```json
-{
-  "message": "Patient record deleted successfully."
-}
+| Method | Endpoint | Access | Description |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/patients/` | Protected | Add a new patient record (auto-assigned to current user) |
+| `GET` | `/api/patients/` | Protected | Retrieve all patients owned by authenticated user |
+| `GET` | `/api/patients/<id>/` | Protected | Get details of a specific patient record |
+| `PUT` | `/api/patients/<id>/` | Protected | Update patient details |
+| `DELETE` | `/api/patients/<id>/` | Protected | Delete a patient record |
+
+### 👨‍⚕️ 3. Doctor Endpoints (`/api/doctors/`)
+
+| Method | Endpoint | Access | Description |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/doctors/` | Protected | Add a new medical doctor record |
+| `GET` | `/api/doctors/` | Protected | Retrieve all medical specialists |
+| `GET` | `/api/doctors/<id>/` | Protected | Get details of a specific doctor |
+| `PUT` | `/api/doctors/<id>/` | Protected | Update doctor specialization or details |
+| `DELETE` | `/api/doctors/<id>/` | Protected | Delete a doctor record |
+
+### 🔗 4. Mapping Endpoints (`/api/mappings/`)
+
+| Method | Endpoint | Access | Description |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/mappings/` | Protected | Assign a doctor to a patient with optional clinical notes |
+| `GET` | `/api/mappings/` | Protected | Retrieve all patient-doctor care assignments |
+| `GET` | `/api/mappings/<patient_id>/` | Protected | Get all doctors assigned to a specific patient |
+| `DELETE` | `/api/mappings/<mapping_id>/` | Protected | Delete a patient-doctor care assignment |
+
+---
+
+## 🐳 Docker & Render Deployment Setup
+
+The application is containerized using a multi-stage Docker build:
+
+### Build & Run locally with Docker
+```bash
+# Build Docker image
+docker build -t carepulse-app .
+
+# Run Docker container
+docker run -p 8000:8000 -e DATABASE_URL="your-neon-postgres-url" carepulse-app
 ```
 
 ---
 
-### 👨‍⚕️ 3. Doctor Management APIs (`/api/doctors/`)
+## 📄 License & Attribution
 
-#### 3.1 Add Doctor
-- **Method**: `POST`
-- **Endpoint**: `/api/doctors/`
-- **Access**: Protected (`Bearer <token>`)
-- **Request Body**:
-```json
-{
-  "name": "Gregory House",
-  "specialization": "Diagnostics",
-  "email": "drhouse@example.com",
-  "phone": "5551234567",
-  "years_of_experience": 15,
-  "hospital_name": "Princeton-Plainsboro"
-}
-```
-
-#### 3.2 List All Doctors
-- **Method**: `GET`
-- **Endpoint**: `/api/doctors/`
-- **Access**: Protected (`Bearer <token>`)
-
-#### 3.3 Get Specific Doctor Details
-- **Method**: `GET`
-- **Endpoint**: `/api/doctors/<id>/`
-- **Access**: Protected (`Bearer <token>`)
-
-#### 3.4 Update Doctor Details
-- **Method**: `PUT`
-- **Endpoint**: `/api/doctors/<id>/`
-- **Access**: Protected (`Bearer <token>`)
-
-#### 3.5 Delete Doctor Record
-- **Method**: `DELETE`
-- **Endpoint**: `/api/doctors/<id>/`
-- **Access**: Protected (`Bearer <token>`)
-
----
-
-### 🔗 4. Patient-Doctor Mapping APIs (`/api/mappings/`)
-
-#### 4.1 Assign Doctor to Patient
-- **Method**: `POST`
-- **Endpoint**: `/api/mappings/`
-- **Access**: Protected (`Bearer <token>`)
-- **Request Body**:
-```json
-{
-  "patient_id": 1,
-  "doctor_id": 1,
-  "notes": "Follow-up diagnostic consultation"
-}
-```
-
-#### 4.2 List All Mappings
-- **Method**: `GET`
-- **Endpoint**: `/api/mappings/`
-- **Access**: Protected (`Bearer <token>`)
-
-#### 4.3 Get Doctors Assigned to Patient
-- **Method**: `GET`
-- **Endpoint**: `/api/mappings/<patient_id>/`
-- **Access**: Protected (`Bearer <token>`)
-
-#### 4.4 Delete Mapping Record
-- **Method**: `DELETE`
-- **Endpoint**: `/api/mappings/<mapping_id>/`
-- **Access**: Protected (`Bearer <token>`)
-
----
-
-## 📬 Postman Collection
-
-Import `Healthcare_Backend.postman_collection.json` into Postman to test all endpoints.
-- The **Login** request automatically captures the JWT `access` token and sets the `{{accessToken}}` environment variable for all subsequent requests.
+Developed for **CarePulse Healthcare Systems Assignment**. Built with ❤️ using Django, React, and PostgreSQL.
