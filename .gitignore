@@ -5,3 +5,10 @@ __pycache__/
 *.sqlite3
 .DS_Store
 node_modules/
+MEMORY.md
+PLAN.md
+Django Assignment_1.txt
+.agents/
+staticfiles/
+
+

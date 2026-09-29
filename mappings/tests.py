@@ -48,6 +48,7 @@ class MappingAPITestCase(TestCase):
         }
         response = self.client.post(self.list_create_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['status'], 'error')
 
     def test_get_doctors_assigned_to_patient(self):
         self.client.force_authenticate(user=self.user)

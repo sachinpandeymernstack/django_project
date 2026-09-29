@@ -8,8 +8,11 @@ from patients.models import Patient
 
 class MappingListCreateView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    queryset = PatientDoctorMapping.objects.all().order_by('-assigned_at')
     serializer_class = PatientDoctorMappingSerializer
+
+    def get_queryset(self):
+        # Uses with_details() to apply select_related('patient', 'doctor') and prevent N+1 queries
+        return PatientDoctorMapping.objects.with_details()
 
 
 class PatientDoctorsOrMappingDetailView(APIView):
@@ -22,7 +25,8 @@ class PatientDoctorsOrMappingDetailView(APIView):
         """
         patient = Patient.objects.filter(pk=pk).first()
         if patient:
-            mappings = PatientDoctorMapping.objects.filter(patient=patient).order_by('-assigned_at')
+            # Uses for_patient() with pre-fetched related patient and doctor models
+            mappings = PatientDoctorMapping.objects.for_patient(patient.id)
             serializer = PatientDoctorMappingSerializer(mappings, many=True)
             return Response({
                 'patient_id': patient.id,
@@ -31,7 +35,7 @@ class PatientDoctorsOrMappingDetailView(APIView):
                 'mappings': serializer.data
             }, status=status.HTTP_200_OK)
 
-        mapping = get_object_or_404(PatientDoctorMapping, pk=pk)
+        mapping = get_object_or_404(PatientDoctorMapping.objects.with_details(), pk=pk)
         serializer = PatientDoctorMappingSerializer(mapping)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

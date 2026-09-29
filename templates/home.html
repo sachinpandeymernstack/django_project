@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - CarePulse Healthcare{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+
+    <!-- Top Banner Card -->
+    <div class="glass-panel p-8 rounded-3xl border border-slate-800 bg-gradient-to-r from-blue-950/40 via-indigo-950/20 to-purple-950/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 glow-blue">
+        <div class="space-y-2 max-w-2xl">
+            <h2 class="text-3xl font-extrabold text-slate-100">Healthcare Management Portal</h2>
+            <p class="text-sm text-slate-400 leading-relaxed">
+                Overview of registered patients, medical doctors, and active patient-doctor care assignments.
+            </p>
+        </div>
+        
+        <a href="http://localhost:3000" target="_blank" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold text-xs flex items-center space-x-2 shadow-xl shadow-blue-500/20 transition transform hover:scale-105 shrink-0">
+            <span>🚀 Switch to Interactive React App (localhost:3000)</span>
+            <span>→</span>
+        </a>
+    </div>
+
+    <!-- Live Database Summary Metrics -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="glass-card p-6 rounded-2xl border border-slate-800 flex items-center justify-between">
+            <div>
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Patients</p>
+                <p class="text-4xl font-extrabold text-blue-400 mt-2">{{ total_patients }}</p>
+                <p class="text-xs text-slate-500 mt-1">Active Medical Records</p>
+            </div>
+            <div class="h-12 w-12 rounded-2xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl font-bold">
+                👥
+            </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl border border-slate-800 flex items-center justify-between">
+            <div>
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Medical Specialists</p>
+                <p class="text-4xl font-extrabold text-emerald-400 mt-2">{{ total_doctors }}</p>
+                <p class="text-xs text-slate-500 mt-1">Available Doctors</p>
+            </div>
+            <div class="h-12 w-12 rounded-2xl bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl font-bold">
+                🩺
+            </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl border border-slate-800 flex items-center justify-between">
+            <div>
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Care Assignments</p>
+                <p class="text-4xl font-extrabold text-purple-400 mt-2">{{ total_mappings }}</p>
+                <p class="text-xs text-slate-500 mt-1">Patient-Doctor Mappings</p>
+            </div>
+            <div class="h-12 w-12 rounded-2xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl font-bold">
+                🔗
+            </div>
+        </div>
+    </div>
+
+    <!-- Patients & Doctors Tables -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- Patient Directory -->
+        <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                    <span>👥</span> Patient Directory
+                </h3>
+                <span class="text-xs font-mono text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full border border-blue-500/20">
+                    {{ patients|length }} Records Shown
+                </span>
+            </div>
+
+            <div class="space-y-3">
+                {% for patient in patients %}
+                <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="h-10 w-10 rounded-xl bg-blue-600/20 border border-blue-500/30 text-blue-400 font-bold text-sm flex items-center justify-center">
+                            {{ patient.name|first }}
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-slate-100">{{ patient.name }}</p>
+                            <p class="text-xs text-slate-400">
+                                {% if patient.email %}{{ patient.email }}{% elif patient.phone %}{{ patient.phone }}{% else %}No contact info{% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-right text-xs">
+                        <span class="text-slate-400 bg-slate-800 px-2 py-0.5 rounded font-mono">ID: #{{ patient.id }}</span>
+                        <p class="text-[11px] text-slate-500 mt-1">Added: {{ patient.created_at|date:"M d, Y" }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="p-8 text-center text-xs text-slate-500 border border-dashed border-slate-800 rounded-2xl">
+                    No patient records found in the database.
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Doctor Directory -->
+        <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                    <span>👨‍⚕️</span> Medical Specialists Directory
+                </h3>
+                <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
+                    {{ doctors|length }} Records Shown
+                </span>
+            </div>
+
+            <div class="space-y-3">
+                {% for doctor in doctors %}
+                <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="h-10 w-10 rounded-xl bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 font-bold text-sm flex items-center justify-center">
+                            Dr.
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-slate-100">Dr. {{ doctor.name }}</p>
+                            <p class="text-xs text-emerald-400 font-medium">{{ doctor.specialization }}</p>
+                        </div>
+                    </div>
+                    <div class="text-right text-xs">
+                        <span class="text-slate-300 font-medium">{{ doctor.years_of_experience }} Yrs Exp</span>
+                        <p class="text-slate-500 text-[11px] truncate max-w-[140px]">{{ doctor.hospital_name|default:"General Hospital" }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="p-8 text-center text-xs text-slate-500 border border-dashed border-slate-800 rounded-2xl">
+                    No doctor records found in the database.
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Patient - Doctor Relationship Mappings -->
+    <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+        <div class="flex items-center justify-between">
+            <div>
+                <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                    <span>🔗</span> Patient - Doctor Care Mappings
+                </h3>
+                <p class="text-xs text-slate-400">Active care assignments</p>
+            </div>
+            <a href="http://localhost:3000" target="_blank" class="text-xs text-purple-400 hover:underline font-medium">
+                Manage on React App (localhost:3000) →
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for mapping in mappings %}
+            <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+                <div class="flex items-center justify-between text-xs font-mono text-purple-400 border-b border-slate-800/80 pb-2">
+                    <span>Mapping #{{ mapping.id }}</span>
+                    <span class="text-[11px] text-slate-500">{{ mapping.assigned_at|date:"M d, Y" }}</span>
+                </div>
+                
+                <div class="space-y-1.5 text-xs">
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-400">Patient:</span>
+                        <span class="font-semibold text-slate-200">{{ mapping.patient.name }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-400">Doctor:</span>
+                        <span class="font-semibold text-emerald-400">Dr. {{ mapping.doctor.name }}</span>
+                    </div>
+                    {% if mapping.notes %}
+                    <p class="text-[11px] text-slate-500 italic pt-1 border-t border-slate-800/50 truncate">
+                        "{{ mapping.notes }}"
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full p-8 text-center text-xs text-slate-500 border border-dashed border-slate-800 rounded-2xl">
+                No active care assignments recorded yet.
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

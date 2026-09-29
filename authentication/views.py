@@ -8,17 +8,16 @@ class RegisterView(APIView):
 
     def post(self, request):
         serializer = UserRegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            return Response({
-                'message': 'User registered successfully.',
-                'user': {
-                    'id': user.id,
-                    'name': user.name,
-                    'email': user.email
-                }
-            }, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        return Response({
+            'message': 'User registered successfully.',
+            'user': {
+                'id': user.id,
+                'name': user.name,
+                'email': user.email
+            }
+        }, status=status.HTTP_201_CREATED)
 
 
 class LoginView(APIView):
@@ -26,11 +25,10 @@ class LoginView(APIView):
 
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
-        if serializer.is_valid():
-            return Response({
-                'message': 'Login successful.',
-                'access': serializer.validated_data['access'],
-                'refresh': serializer.validated_data['refresh'],
-                'user': serializer.validated_data['user']
-            }, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        return Response({
+            'message': 'Login successful.',
+            'access': serializer.validated_data['access'],
+            'refresh': serializer.validated_data['refresh'],
+            'user': serializer.validated_data['user']
+        }, status=status.HTTP_200_OK)

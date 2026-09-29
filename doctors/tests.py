@@ -24,6 +24,7 @@ class DoctorAPITestCase(TestCase):
     def test_create_doctor_unauthenticated(self):
         response = self.client.post(self.list_create_url, {'name': 'Dr. Strange'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.data['status'], 'error')
 
     def test_create_doctor_authenticated(self):
         self.client.force_authenticate(user=self.user)
@@ -42,7 +43,8 @@ class DoctorAPITestCase(TestCase):
         self.client.force_authenticate(user=self.user)
         response = self.client.get(self.list_create_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
+        results = response.data.get('results', response.data) if isinstance(response.data, dict) else response.data
+        self.assertEqual(len(results), 1)
 
     def test_get_doctor_detail(self):
         self.client.force_authenticate(user=self.user)

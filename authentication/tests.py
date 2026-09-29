@@ -29,6 +29,7 @@ class AuthenticationAPITestCase(TestCase):
         self.client.post(self.register_url, self.user_data, format='json')
         response = self.client.post(self.register_url, self.user_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['status'], 'error')
 
     def test_login_user_success(self):
         self.client.post(self.register_url, self.user_data, format='json')
@@ -49,3 +50,4 @@ class AuthenticationAPITestCase(TestCase):
         }
         response = self.client.post(self.login_url, login_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['status'], 'error')

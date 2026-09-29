@@ -27,6 +27,7 @@ class PatientAPITestCase(TestCase):
     def test_create_patient_unauthenticated(self):
         response = self.client.post(self.list_create_url, {'name': 'Jane Doe'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.data['status'], 'error')
 
     def test_create_patient_authenticated(self):
         self.client.force_authenticate(user=self.user1)
@@ -49,8 +50,10 @@ class PatientAPITestCase(TestCase):
         self.client.force_authenticate(user=self.user1)
         response = self.client.get(self.list_create_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]['name'], 'John Doe')
+        # Note: if paginated, data is in 'results' key or list directly
+        results = response.data.get('results', response.data) if isinstance(response.data, dict) else response.data
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['name'], 'John Doe')
 
     def test_get_patient_detail(self):
         self.client.force_authenticate(user=self.user1)

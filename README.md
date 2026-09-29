@@ -9,11 +9,48 @@ This project provides secure user authentication, patient management, doctor dir
 ## 🛠️ Tech Stack & Prerequisites
 
 ### Tech Stack
-- **Framework**: Django 6.1 / Django REST Framework
+- **Backend Framework**: Django 6.1 / Django REST Framework
 - **Authentication**: `djangorestframework-simplejwt` (JWT Bearer tokens)
-- **Database**: PostgreSQL
-- **Environment Management**: `python-dotenv`
-- **CORS Support**: `django-cors-headers`
+- **Database**: PostgreSQL (Neon Cloud DB)
+- **API Documentation**: OpenAPI 3.0 via `drf-spectacular` (Swagger UI & ReDoc)
+- **Frontend Framework**: React 19 + TypeScript (Vite)
+- **State & Data Fetching**: TanStack Query (`@tanstack/react-query`)
+- **UI & Animations**: TailwindCSS v4, Framer Motion, Lucide React Icons
+
+---
+
+## 📖 API Documentation & Views
+
+Interactive documentation, MVT views, and Admin dashboard:
+- **Classic Django MVT Portal**: `http://127.0.0.1:8000/` (Server-side rendered HTML via Django Templates & ORM)
+- **Swagger UI**: `http://127.0.0.1:8000/api/docs/`
+- **ReDoc UI**: `http://127.0.0.1:8000/api/redoc/`
+- **OpenAPI JSON Schema**: `http://127.0.0.1:8000/api/schema/`
+- **Django MVT Admin Dashboard**: `http://127.0.0.1:8000/admin/`
+
+
+---
+
+## 🎨 React Frontend Setup
+
+---
+
+## 🎨 React Frontend Setup
+
+The project includes a full-featured, glassmorphic React dashboard located in the `frontend/` directory.
+
+### Start Frontend Dev Server
+```bash
+cd frontend
+npm run dev
+```
+Access the application in your browser at `http://localhost:3000`.
+
+### Features
+- **Auth Context**: Persists JWT access/refresh tokens and user session in `localStorage`.
+- **TanStack Query Integration**: Automatic data fetching, caching, and mutation invalidations for Patients, Doctors, and Mappings.
+- **Glassmorphic UI & Framer Motion Animations**: Smooth page transitions, animated modal dialogs, and interactive metric cards.
+
 
 ### Prerequisites
 Make sure you have the following installed on your system:
@@ -94,8 +131,10 @@ python manage.py runserver
 
 Run the complete automated unit and API integration test suite (20 tests):
 ```bash
-python manage.py test
+python manage.py test --keepdb
 ```
+> **Tip for Neon Cloud PostgreSQL**: Use `--keepdb` when running tests against Neon's connection pooler to prevent pooler session locks during test database teardown.
+
 
 ---
 
