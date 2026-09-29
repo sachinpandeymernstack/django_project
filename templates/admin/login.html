@@ -1,19 +1,136 @@
-{% extends "admin/login.html" %}
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<!-- Tailwind CSS & Google Fonts for Responsive Modern UI -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        background: #080c16 !important;
+        background-image: radial-gradient(ellipse at top, rgba(30, 58, 138, 0.25), rgba(15, 23, 42, 0.95), #050811) !important;
+        color: #f8fafc !important;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #header, #user-tools, .breadcrumbs {
+        display: none !important;
+    }
+    #container {
+        background: transparent !important;
+        border: none !important;
+        width: 100% !important;
+        max-width: 480px !important;
+        padding: 16px !important;
+        box-sizing: border-box !important;
+    }
+    #content {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+</style>
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block nav-global %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+{% block content_title %}{% endblock %}
+{% block breadcrumbs %}{% endblock %}
 
 {% block content %}
-<!-- Light, smooth, and beautiful yellow note for project invigilator -->
-<div style="background: rgba(254, 240, 138, 0.12); border: 1px solid rgba(234, 179, 8, 0.35); border-radius: 14px; padding: 14px 16px; margin-bottom: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; backdrop-filter: blur(8px);">
-    <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #facc15; font-size: 13px; margin-bottom: 6px;">
-        <span style="font-size: 16px;">💡</span> Project Invigilator / Evaluator Note
-    </div>
-    <p style="margin: 0 0 8px 0; font-size: 12px; color: #fef08a; line-height: 1.4;">
-        Use the pre-configured superuser account for instant administration panel access:
-    </p>
-    <div style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(250, 204, 21, 0.25); border-radius: 8px; padding: 8px 12px; font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; color: #ffffff;">
-        <span style="color: #fef08a;">Username:</span> <strong style="color: #ffffff;">admin</strong> &nbsp;|&nbsp;
-        <span style="color: #fef08a;">Password:</span> <strong style="color: #ffffff;">AdminPassword123!</strong>
+<div class="w-full max-w-md mx-auto">
+    <!-- Main Responsive Glass Card -->
+    <div class="p-6 sm:p-8 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-slate-800 shadow-2xl space-y-6">
+        
+        <!-- Header Branding -->
+        <div class="text-center space-y-2">
+            <div class="inline-flex h-12 w-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 items-center justify-center shadow-lg shadow-blue-500/25 mb-1">
+                <span class="text-2xl">🛡️</span>
+            </div>
+            <h1 class="text-2xl font-bold bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                Django Administration
+            </h1>
+            <p class="text-xs text-slate-400">
+                CarePulse Healthcare System Control Panel
+            </p>
+        </div>
+
+        <!-- Light Smooth Yellow Note for Project Invigilator -->
+        <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 16px; padding: 14px 16px; backdrop-filter: blur(8px);">
+            <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #facc15; font-size: 13px; margin-bottom: 6px;">
+                <span style="font-size: 15px;">💡</span> Project Invigilator / Evaluator Note
+            </div>
+            <p style="margin: 0 0 8px 0; font-size: 11px; color: rgba(254, 240, 138, 0.9); line-height: 1.4;">
+                Pre-configured admin credentials for instant evaluation access:
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(250, 204, 21, 0.25); border-radius: 10px; padding: 10px 12px; font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;">
+                <div style="flex: 1 1 auto; min-width: 120px;">
+                    <span style="color: #fef08a; font-size: 11px;">Username:</span>
+                    <strong style="color: #ffffff; display: block; font-size: 13px;">admin</strong>
+                </div>
+                <div style="flex: 1 1 auto; min-width: 140px;">
+                    <span style="color: #fef08a; font-size: 11px;">Password:</span>
+                    <strong style="color: #ffffff; display: block; font-size: 13px;">AdminPassword123!</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Notifications -->
+        {% if form.errors and not form.non_field_errors %}
+        <div class="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs">
+            {% if form.errors.items|length == 1 %}{% translate "Please correct the error below." %}{% else %}{% translate "Please correct the errors below." %}{% endif %}
+        </div>
+        {% endif %}
+
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <div class="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs">
+            {{ error }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <!-- Login Form -->
+        <form action="{{ app_path }}" method="post" id="login-form" class="space-y-4">{% csrf_token %}
+            <div>
+                <label for="id_username" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                    Username
+                </label>
+                <input type="text" name="username" autofocus required id="id_username" placeholder="admin"
+                       class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700/80 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+            </div>
+
+            <div>
+                <label for="id_password" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                    Password
+                </label>
+                <input type="password" name="password" required id="id_password" placeholder="••••••••"
+                       class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700/80 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                <input type="hidden" name="next" value="{{ next }}">
+            </div>
+
+            <button type="submit"
+                    class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-sm transition-all shadow-lg shadow-blue-500/20 active:scale-[0.99] cursor-pointer">
+                Log In to Admin Panel →
+            </button>
+        </form>
+
+        <!-- Navigation Footer -->
+        <div class="pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+            <a href="/" class="hover:text-blue-400 transition-colors flex items-center gap-1">
+                ← Back to Homepage
+            </a>
+            <a href="/api/docs/" class="hover:text-blue-400 transition-colors">
+                API Docs ↗
+            </a>
+        </div>
     </div>
 </div>
-
-{{ block.super }}
 {% endblock %}

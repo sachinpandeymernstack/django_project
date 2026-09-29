@@ -66,17 +66,6 @@ export const AuthPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Yellow Invigilator / Evaluator Note */}
-        <div className="mb-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 backdrop-blur-md space-y-1.5 shadow-sm">
-          <div className="flex items-center space-x-2 text-amber-300 font-bold text-xs">
-            <span className="text-sm">💡</span>
-            <span>Project Invigilator / Evaluator Note</span>
-          </div>
-          <p className="text-[11px] text-amber-200/90 leading-relaxed">
-            Pre-configured demo credentials are listed below. Click <strong className="text-amber-300 font-semibold">Auto-fill</strong> for instant login & testing.
-          </p>
-        </div>
-
         {/* Tab Switcher */}
         <div className="flex rounded-xl bg-slate-900/80 p-1 mb-6 border border-slate-800">
           <button
