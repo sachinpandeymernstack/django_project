@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
 
 export default defineConfig({
+  base: '/static/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
@@ -15,3 +16,4 @@ export default defineConfig({
     open: false,
   },
 });
+
