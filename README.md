@@ -6,6 +6,14 @@ This project provides secure user authentication, patient management, doctor dir
 
 ---
 
+## 🌐 Live Production URL
+- **Live Application**: [https://sachinwhatbytes.onrender.com/](https://sachinwhatbytes.onrender.com/)
+- **Live Swagger API Docs**: [https://sachinwhatbytes.onrender.com/api/docs/](https://sachinwhatbytes.onrender.com/api/docs/)
+- **Live ReDoc Schema**: [https://sachinwhatbytes.onrender.com/api/redoc/](https://sachinwhatbytes.onrender.com/api/redoc/)
+- **Live Django Admin**: [https://sachinwhatbytes.onrender.com/admin/](https://sachinwhatbytes.onrender.com/admin/)
+
+---
+
 ## 🛠️ Tech Stack & Prerequisites
 
 ### Tech Stack
@@ -16,6 +24,8 @@ This project provides secure user authentication, patient management, doctor dir
 - **Frontend Framework**: React 19 + TypeScript (Vite)
 - **State & Data Fetching**: TanStack Query (`@tanstack/react-query`)
 - **UI & Animations**: TailwindCSS v4, Framer Motion, Lucide React Icons
+- **Deployment**: Docker container on Render.com
+
 
 ---
 
