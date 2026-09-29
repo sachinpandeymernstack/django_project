@@ -4,16 +4,20 @@ import { getPatientsApi } from '../api/patients';
 import { getDoctorsApi } from '../api/doctors';
 import { getMappingsApi } from '../api/mappings';
 import { Users, Stethoscope, GitMerge, Plus, ArrowUpRight, ArrowRight } from 'lucide-react';
+import { SkeletonMetric, SkeletonCard } from '../components/Skeleton';
 import { motion } from 'framer-motion';
+
 
 interface DashboardPageProps {
   setActiveTab: (tab: string) => void;
 }
 
 export const DashboardPage: React.FC<DashboardPageProps> = ({ setActiveTab }) => {
-  const { data: patients = [] } = useQuery({ queryKey: ['patients'], queryFn: getPatientsApi });
-  const { data: doctors = [] } = useQuery({ queryKey: ['doctors'], queryFn: getDoctorsApi });
-  const { data: mappings = [] } = useQuery({ queryKey: ['mappings'], queryFn: getMappingsApi });
+  const { data: patients = [], isLoading: isLoadingPatients } = useQuery({ queryKey: ['patients'], queryFn: getPatientsApi });
+  const { data: doctors = [], isLoading: isLoadingDoctors } = useQuery({ queryKey: ['doctors'], queryFn: getDoctorsApi });
+  const { data: mappings = [], isLoading: isLoadingMappings } = useQuery({ queryKey: ['mappings'], queryFn: getMappingsApi });
+  const isLoading = isLoadingPatients || isLoadingDoctors || isLoadingMappings;
+
 
   const stats = [
     {
@@ -69,31 +73,34 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ setActiveTab }) =>
 
       {/* Metrics Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-        {stats.map((stat, idx) => {
-          const Icon = stat.icon;
-          return (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1, duration: 0.3 }}
-              className="glass-card p-5 rounded-2xl border border-slate-800 flex flex-col justify-between relative overflow-hidden group cursor-pointer"
-              onClick={() => setActiveTab(stat.action)}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-semibold text-slate-400">{stat.title}</span>
-                <div className={`h-10 w-10 rounded-xl bg-gradient-to-tr ${stat.color} flex items-center justify-center text-white shadow-md`}>
-                  <Icon className="h-5 w-5" />
-                </div>
-              </div>
-              <div className="flex items-baseline justify-between">
-                <span className="text-3xl font-extrabold text-slate-100">{stat.count}</span>
-                <ArrowUpRight className="h-4 w-4 text-slate-500 group-hover:text-blue-400 transition-colors" />
-              </div>
-            </motion.div>
-          );
-        })}
+        {isLoading
+          ? Array.from({ length: 3 }).map((_, i) => <SkeletonMetric key={i} />)
+          : stats.map((stat, idx) => {
+              const Icon = stat.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1, duration: 0.3 }}
+                  className="glass-card p-5 rounded-2xl border border-slate-800 flex flex-col justify-between relative overflow-hidden group cursor-pointer"
+                  onClick={() => setActiveTab(stat.action)}
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-semibold text-slate-400">{stat.title}</span>
+                    <div className={`h-10 w-10 rounded-xl bg-gradient-to-tr ${stat.color} flex items-center justify-center text-white shadow-md`}>
+                      <Icon className="h-5 w-5" />
+                    </div>
+                  </div>
+                  <div className="flex items-baseline justify-between">
+                    <span className="text-3xl font-extrabold text-slate-100">{stat.count}</span>
+                    <ArrowUpRight className="h-4 w-4 text-slate-500 group-hover:text-blue-400 transition-colors" />
+                  </div>
+                </motion.div>
+              );
+            })}
       </div>
+
 
       {/* Two Column Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

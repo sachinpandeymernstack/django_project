@@ -1,0 +1,19 @@
+{% extends "admin/login.html" %}
+
+{% block content %}
+<!-- Light, smooth, and beautiful yellow note for project invigilator -->
+<div style="background: rgba(254, 240, 138, 0.12); border: 1px solid rgba(234, 179, 8, 0.35); border-radius: 14px; padding: 14px 16px; margin-bottom: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; backdrop-filter: blur(8px);">
+    <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #facc15; font-size: 13px; margin-bottom: 6px;">
+        <span style="font-size: 16px;">💡</span> Project Invigilator / Evaluator Note
+    </div>
+    <p style="margin: 0 0 8px 0; font-size: 12px; color: #fef08a; line-height: 1.4;">
+        Use the pre-configured superuser account for instant administration panel access:
+    </p>
+    <div style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(250, 204, 21, 0.25); border-radius: 8px; padding: 8px 12px; font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; color: #ffffff;">
+        <span style="color: #fef08a;">Username:</span> <strong style="color: #ffffff;">admin</strong> &nbsp;|&nbsp;
+        <span style="color: #fef08a;">Password:</span> <strong style="color: #ffffff;">AdminPassword123!</strong>
+    </div>
+</div>
+
+{{ block.super }}
+{% endblock %}

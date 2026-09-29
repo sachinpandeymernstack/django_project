@@ -3,8 +3,10 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getDoctorsApi, createDoctorApi, updateDoctorApi, deleteDoctorApi, Doctor, DoctorCreatePayload } from '../api/doctors';
 import { Plus, Search, Edit2, Trash2, Stethoscope, Mail, Phone, Award, Building, Loader2 } from 'lucide-react';
 import { Modal } from '../components/Modal';
+import { SkeletonGrid } from '../components/Skeleton';
 import { motion } from 'framer-motion';
 import { showErrorToast, showSuccessToast } from '../utils/toast';
+
 
 export const DoctorsPage: React.FC = () => {
   const queryClient = useQueryClient();
@@ -159,11 +161,8 @@ export const DoctorsPage: React.FC = () => {
         </div>
       </div>
 
-      {isLoading && (
-        <div className="flex justify-center items-center p-12">
-          <Loader2 className="h-8 w-8 text-emerald-500 animate-spin" />
-        </div>
-      )}
+      {isLoading && <SkeletonGrid count={6} />}
+
 
       {isError && (
         <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">

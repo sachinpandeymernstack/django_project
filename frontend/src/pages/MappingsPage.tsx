@@ -5,8 +5,10 @@ import { getDoctorsApi } from '../api/doctors';
 import { getMappingsApi, createMappingApi, deleteMappingApi } from '../api/mappings';
 import { GitMerge, Plus, Trash2, ArrowRight, User, Stethoscope, FileText, Filter, Loader2 } from 'lucide-react';
 import { Modal } from '../components/Modal';
+import { SkeletonGrid } from '../components/Skeleton';
 import { motion } from 'framer-motion';
 import { showErrorToast, showSuccessToast } from '../utils/toast';
+
 
 export const MappingsPage: React.FC = () => {
   const queryClient = useQueryClient();
@@ -108,11 +110,8 @@ export const MappingsPage: React.FC = () => {
         </select>
       </div>
 
-      {isLoading && (
-        <div className="flex justify-center items-center p-12">
-          <Loader2 className="h-8 w-8 text-purple-500 animate-spin" />
-        </div>
-      )}
+      {isLoading && <SkeletonGrid count={4} />}
+
 
       {isError && (
         <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">

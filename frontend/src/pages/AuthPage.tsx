@@ -54,7 +54,7 @@ export const AuthPage: React.FC = () => {
         className="w-full max-w-md glass-panel p-8 rounded-3xl border border-slate-800 shadow-2xl relative z-10"
       >
         {/* Header Branding */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <div className="inline-flex h-12 w-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 items-center justify-center mb-4 shadow-lg shadow-blue-500/25">
             <Activity className="h-7 w-7 text-white" />
           </div>
@@ -63,6 +63,17 @@ export const AuthPage: React.FC = () => {
           </h2>
           <p className="text-xs text-slate-400 mt-1">
             Sign in or register to manage healthcare records
+          </p>
+        </div>
+
+        {/* Yellow Invigilator / Evaluator Note */}
+        <div className="mb-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 backdrop-blur-md space-y-1.5 shadow-sm">
+          <div className="flex items-center space-x-2 text-amber-300 font-bold text-xs">
+            <span className="text-sm">💡</span>
+            <span>Project Invigilator / Evaluator Note</span>
+          </div>
+          <p className="text-[11px] text-amber-200/90 leading-relaxed">
+            Pre-configured demo credentials are listed below. Click <strong className="text-amber-300 font-semibold">Auto-fill</strong> for instant login & testing.
           </p>
         </div>
 
@@ -166,23 +177,23 @@ export const AuthPage: React.FC = () => {
         </form>
 
         {/* Demo Credentials Box */}
-        <div className="mt-6 p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between shadow-inner">
+        <div className="mt-6 p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-center justify-between shadow-inner">
           <div className="space-y-0.5">
             <div className="flex items-center space-x-1.5">
-              <Key className="h-3.5 w-3.5 text-blue-400" />
-              <p className="text-xs font-semibold text-slate-200">Demo Credentials</p>
+              <Key className="h-3.5 w-3.5 text-amber-400" />
+              <p className="text-xs font-semibold text-amber-200">Invigilator Credentials</p>
             </div>
-            <p className="text-[11px] text-slate-400">
-              Email: <span className="text-slate-200 font-mono select-all">admin@healthcare.org</span>
+            <p className="text-[11px] text-amber-200/80">
+              Email: <span className="text-white font-mono select-all font-medium">admin@healthcare.org</span>
             </p>
-            <p className="text-[11px] text-slate-400">
-              Password: <span className="text-slate-200 font-mono select-all">AdminPassword123!</span>
+            <p className="text-[11px] text-amber-200/80">
+              Password: <span className="text-white font-mono select-all font-medium">AdminPassword123!</span>
             </p>
           </div>
           <button
             type="button"
             onClick={handleFillDemo}
-            className="px-3 py-1.5 text-xs font-medium bg-blue-600/20 hover:bg-blue-600/40 text-blue-300 border border-blue-500/30 rounded-lg transition-all active:scale-95 shadow-sm"
+            className="px-3 py-1.5 text-xs font-semibold bg-amber-500/20 hover:bg-amber-500/35 text-amber-200 border border-amber-500/40 rounded-lg transition-all active:scale-95 shadow-sm"
           >
             Auto-fill
           </button>
@@ -191,4 +202,5 @@ export const AuthPage: React.FC = () => {
     </div>
   );
 };
+
 
