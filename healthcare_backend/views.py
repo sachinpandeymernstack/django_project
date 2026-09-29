@@ -17,3 +17,11 @@ def home_mvt_view(request):
         'mappings': PatientDoctorMapping.objects.with_details().order_by('-assigned_at')[:10],
     }
     return render(request, 'home.html', context)
+
+
+def react_app_view(request):
+    """
+    Serves the interactive React 19 Single Page Application (SPA).
+    """
+    return render(request, 'index.html')
+

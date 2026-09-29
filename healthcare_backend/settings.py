@@ -52,7 +52,10 @@ ROOT_URLCONF = 'healthcare_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [
+            BASE_DIR / 'templates',
+            BASE_DIR / 'frontend' / 'dist',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -162,6 +165,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+FRONTEND_DIST = BASE_DIR / 'frontend' / 'dist'
+STATICFILES_DIRS = [FRONTEND_DIST] if FRONTEND_DIST.exists() else []
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
